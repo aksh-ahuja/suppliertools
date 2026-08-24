@@ -72,6 +72,7 @@ export const tools: Tool[] = [
       'Prints the product name, size and quantity in big letters on each label',
       'Splits the output into separate PDFs per courier or per product',
       'Remembers your SKU to product mapping so you set it up once',
+      'Handles several shops, each with its own product mapping',
       'Works offline after the first load',
     ],
     faqs: [
@@ -104,6 +105,11 @@ export const tools: Tool[] = [
         question: 'Can I get a separate PDF for each courier?',
         answer:
           'Yes. In Settings, tick Delivery partner under "Make separate files" and you will get one PDF per courier, ready to hand over to each pickup.',
+      },
+      {
+        question: 'I run more than one Meesho shop. Can I use it for all of them?',
+        answer:
+          'Yes. Add as many shops as you like and switch between them from the shop name in the header. Each shop keeps its own product names and SKU mapping, so a SKU ID you named under one shop never leaks into another. Sorting and printing preferences are shared across shops.',
       },
       {
         question: 'Does it work on a phone?',

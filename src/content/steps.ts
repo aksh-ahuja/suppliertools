@@ -3,7 +3,7 @@ import type { Step } from '@/components/marketing/Steps'
 export const labelSorterSteps: Step[] = [
   {
     name: 'Download your labels',
-    text: 'Get the shipping label PDF from the Meesho supplier panel the way you already do.',
+    text: 'Get the shipping label PDF from the Meesho supplier panel the way you already do. Running several shops is fine, each one keeps its own setup.',
   },
   {
     name: 'Drop it into the tool',

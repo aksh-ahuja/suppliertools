@@ -14,6 +14,7 @@ import { ReviewStep } from './ReviewStep'
 import { MappingEditor } from './MappingEditor'
 import { SettingsPanel } from './SettingsPanel'
 import { Notice, Panel } from './Primitives'
+import { ShopSwitcher } from './ShopSwitcher'
 
 type Screen = 'home' | 'upload' | 'review' | 'mapping' | 'settings'
 
@@ -53,7 +54,7 @@ function Shell() {
     <div className="pb-20">
       <Container width="narrow">
         <div className="py-6">
-          <ToolHeader />
+          <ToolHeader onManageShops={() => setScreen('settings')} />
         </div>
 
         {needsSetup ? (
@@ -134,7 +135,7 @@ function Shell() {
   )
 }
 
-function ToolHeader() {
+function ToolHeader({ onManageShops }: { onManageShops: () => void }) {
   const { t, state, setLang, shop } = useLabelSorter()
 
   return (
@@ -145,7 +146,11 @@ function ToolHeader() {
         </span>
         <div className="min-w-0">
           <h1 className="text-[19px] font-bold leading-tight tracking-[-0.02em]">{t.appName}</h1>
-          <p className="text-[13px] text-muted">{shop ? t.home_hi(shop.name) : t.appSub}</p>
+          {shop ? (
+            <ShopSwitcher onManage={onManageShops} />
+          ) : (
+            <p className="text-[13px] text-muted">{t.appSub}</p>
+          )}
         </div>
       </div>
 
@@ -240,6 +245,13 @@ function HomeScreen({ onNavigate }: { onNavigate: (screen: Screen) => void }) {
       sub: t.tile_settingsSub,
       show: true,
     },
+    {
+      key: 'settings',
+      icon: '🏪',
+      title: t.tile_shops,
+      sub: t.tile_shopsSub(state.shops.length),
+      show: true,
+    },
   ]
 
   return (
@@ -255,7 +267,7 @@ function HomeScreen({ onNavigate }: { onNavigate: (screen: Screen) => void }) {
           {tiles
             .filter((tile) => tile.show)
             .map((tile) => (
-              <li key={tile.key}>
+              <li key={tile.title}>
                 <button
                   type="button"
                   onClick={() => onNavigate(tile.key)}

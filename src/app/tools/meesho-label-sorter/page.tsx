@@ -51,6 +51,10 @@ const features = [
     body: 'Each run of identical items is numbered, so you can see where one pile ends without reading any names.',
   },
   {
+    title: 'More than one shop',
+    body: 'Run several Meesho accounts from the same browser. Each shop keeps its own product names and SKU mapping, and you switch between them from the header.',
+  },
+  {
     title: 'Nine languages',
     body: 'English, Hindi, Gujarati, Marathi, Tamil, Telugu, Kannada, Bengali and Punjabi, because your packing staff should not need English.',
   },
