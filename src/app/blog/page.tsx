@@ -13,8 +13,8 @@ export const metadata: Metadata = pageMetadata({
   path: '/blog',
 })
 
-export default async function BlogIndexPage() {
-  const posts = await listArticles(60)
+export default function BlogIndexPage() {
+  const posts = listArticles(60)
 
   return (
     <>
@@ -25,21 +25,11 @@ export default async function BlogIndexPage() {
       />
       <Container>
         <div className="pb-8">
-          {posts.length === 0 ? (
-            <div className="rounded-[var(--radius-card)] border border-dashed border-line p-10 text-center">
-              <p className="text-[17px] font-semibold">No posts published yet</p>
-              <p className="mx-auto mt-2 max-w-[46ch] text-[15px] leading-relaxed text-muted">
-                The first guides are being written. In the meantime, the tools themselves each have a
-                full how-to page.
-              </p>
-            </div>
-          ) : (
-            <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <PostCard key={post._id} post={post} />
-              ))}
-            </div>
-          )}
+          <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <PostCard key={post.slug} post={post} />
+            ))}
+          </div>
         </div>
       </Container>
       <WhatsAppCta

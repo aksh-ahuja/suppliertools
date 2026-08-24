@@ -3,10 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  # Sanity fires this after a post is published, so content goes live
-  # without a code change. Event type: "sanity-publish".
-  repository_dispatch:
-    types: [sanity-publish]
   workflow_dispatch:
 
 permissions:
@@ -35,9 +31,6 @@ jobs:
       - run: npm run typecheck
 
       - run: npm run build
-        env:
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.SANITY_PROJECT_ID }}
-          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.SANITY_DATASET }}
 
       - uses: actions/configure-pages@v5
 

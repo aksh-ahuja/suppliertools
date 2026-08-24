@@ -72,10 +72,6 @@ export default function PrivacyPage() {
               applies to every website you visit.
             </li>
             <li>
-              <strong>Sanity</strong> stores the blog articles. Article text is fetched when the site
-              is built, not when you visit, so your browser does not talk to Sanity at all.
-            </li>
-            <li>
               <strong>WhatsApp</strong> is used only if you choose to click through and message me.
               That conversation is governed by WhatsApp&rsquo;s own policy.
             </li>

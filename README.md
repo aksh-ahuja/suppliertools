@@ -28,7 +28,7 @@ switched off.
 | Styling | Tailwind CSS v4 | Design tokens in `src/app/globals.css` |
 | PDF read | `pdfjs-dist` | Text layer extraction, loaded on demand |
 | PDF write | `pdf-lib` | Page copy and stamping, loaded on demand |
-| Blog | Sanity, fetched at build time | Content edits do not need a code change |
+| Blog | TypeScript modules in the repo | No CMS, no build-time third party |
 | Storage | `localStorage` | Per-device, per-browser, never synced |
 
 ## Getting started
@@ -46,9 +46,6 @@ npm run typecheck    # tsc --noEmit
 npm start            # serve ./out locally
 ```
 
-Copy `.env.example` to `.env.local` if you want to connect Sanity. Without it
-the blog serves the three articles committed under `src/content/posts`.
-
 ## Project layout
 
 ```
@@ -61,8 +58,11 @@ src/
 ├── config/
 │   ├── site.ts              URLs, WhatsApp number, repo link
 │   └── tools.ts             The tool registry (see below)
-├── content/                 FAQs, seed blog articles
-├── lib/                     SEO helpers, Sanity client, post merging
+├── content/
+│   ├── faqs.ts              Site-wide FAQ, feeds FAQPage schema
+│   ├── steps.ts             The four-step how-to, feeds HowTo schema
+│   └── posts/               Blog articles, one TypeScript module each
+├── lib/                     SEO helpers, article lookup
 └── tools/
     └── meesho-label-sorter/ One self-contained tool
         ├── components/      Screens: onboarding, upload, review, mapping, settings
@@ -107,8 +107,15 @@ Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the static
 export and publishes it to GitHub Pages. `public/CNAME` points the site at
 `suppliertools.store`.
 
-Publishing a blog post in Sanity triggers a `repository_dispatch` webhook that
-reruns the same workflow, so content changes go live without a code push.
+### Writing a post
+
+Add a module under `src/content/posts/` exporting an `Article`, then import it
+in `src/content/posts/index.ts`. Everything else (blog index, home page,
+sitemap, `BlogPosting` structured data, reading time) reads from that array.
+
+There is deliberately no CMS. The site has no server, posts change a few times a
+month, and keeping them in the repo means a typo fails `npm run typecheck`
+rather than the live page, and every edit has a diff.
 
 ## Contributing
 

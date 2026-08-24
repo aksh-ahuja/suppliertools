@@ -27,9 +27,9 @@ export const metadata: Metadata = pageMetadata({
   ],
 })
 
-export default async function HomePage() {
+export default function HomePage() {
   const sorter = getTool('meesho-label-sorter')!
-  const posts = await listArticles(3)
+  const posts = listArticles(3)
 
   return (
     <>
@@ -213,10 +213,10 @@ export default async function HomePage() {
             </div>
             <ul className="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-3">
               {posts.map((post) => (
-                <li key={post._id}>
+                <li key={post.slug}>
                   <Link href={`/blog/${post.slug}/`} className="group block">
                     <p className="text-[12.5px] font-medium uppercase tracking-[0.07em] text-faint">
-                      {post.category ?? 'Guide'} · {formatDate(post.publishedAt)}
+                      {post.category} · {formatDate(post.publishedAt)}
                     </p>
                     <h3 className="mt-2.5 text-[18.5px] font-bold leading-[1.32] tracking-[-0.02em] transition-colors group-hover:text-accent">
                       {post.title}

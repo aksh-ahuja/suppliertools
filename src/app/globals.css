@@ -140,6 +140,165 @@
     border: 1px solid var(--color-line);
     margin: 1.3rem 0;
   }
+
+  /* Anchor targets sit under the sticky header without the TOC link
+     scrolling the heading out of view. */
+  .prose-page h2[id] {
+    scroll-margin-top: 88px;
+  }
+
+  /* Key takeaways block. */
+  .prose-page .tldr {
+    margin: 0 0 2rem;
+    padding: 1.25rem 1.4rem;
+    border: 1px solid var(--color-accent-line);
+    background: var(--color-accent-soft);
+    border-radius: 14px;
+  }
+  .prose-page .tldr p:first-child {
+    margin: 0 0 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .prose-page .tldr ul {
+    margin: 0 0 0 1.1rem;
+    gap: 0.35rem;
+  }
+  .prose-page .tldr li {
+    font-size: 0.96em;
+  }
+
+  /* Table of contents. */
+  .prose-page .toc {
+    margin: 0 0 2.4rem;
+    padding: 1.1rem 1.4rem;
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+  }
+  .prose-page .toc p {
+    margin: 0 0 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+  .prose-page .toc ol {
+    margin: 0 0 0 1.1rem;
+    gap: 0.3rem;
+  }
+  .prose-page .toc a {
+    color: var(--color-ink-soft);
+    text-decoration: none;
+  }
+  .prose-page .toc a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  /* Original diagrams authored inside articles. */
+  .prose-page figure {
+    margin: 1.8rem 0;
+  }
+  .prose-page figcaption {
+    margin-top: 0.7rem;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    text-align: center;
+  }
+  .prose-page .stack-demo {
+    display: grid;
+    gap: 1.4rem;
+    padding: 1.4rem;
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+    background: var(--color-bg-sunk);
+  }
+  @media (min-width: 640px) {
+    .prose-page .stack-demo {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+    }
+  }
+  .prose-page .stack-demo h4 {
+    margin: 0 0 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+  .prose-page .stack-demo .after h4 {
+    color: var(--color-accent);
+  }
+  .prose-page .stack-demo ul {
+    margin: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.3rem;
+  }
+  .prose-page .stack-demo li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.6rem;
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    border-radius: 7px;
+    font-size: 0.76rem;
+    font-weight: 600;
+  }
+  .prose-page .stack-demo li span:first-child {
+    width: 3px;
+    height: 15px;
+    border-radius: 2px;
+    flex: none;
+  }
+  .prose-page .stack-demo li span:last-child {
+    margin-left: auto;
+    padding: 0.05rem 0.3rem;
+    border-radius: 3px;
+    background: var(--color-bg-sunk);
+    font-size: 0.68rem;
+    color: var(--color-muted);
+  }
+  .prose-page .stack-demo .p1 span:first-child { background: var(--color-accent); }
+  .prose-page .stack-demo .p2 span:first-child { background: var(--color-ink); }
+  .prose-page .stack-demo .p3 span:first-child { background: var(--color-faint); }
+  .prose-page .stack-demo .set {
+    margin: 0.25rem 0 0.7rem;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  /* Checklists and comparison tables inside articles. */
+  .prose-page table {
+    width: 100%;
+    margin: 1.4rem 0;
+    border-collapse: collapse;
+    font-size: 0.94em;
+  }
+  .prose-page th,
+  .prose-page td {
+    padding: 0.65rem 0.8rem;
+    border-bottom: 1px solid var(--color-line);
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose-page th {
+    font-weight: 700;
+    color: var(--color-ink);
+    border-bottom-color: var(--color-faint);
+  }
+  .prose-page .table-scroll {
+    overflow-x: auto;
+  }
 }
 
 /* Respect people who ask the OS for less movement. */

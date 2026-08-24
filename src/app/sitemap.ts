@@ -9,12 +9,13 @@ const staticPaths: { path: string; priority: number; changeFrequency: MetadataRo
   { path: '/blog/', priority: 0.7, changeFrequency: 'weekly' },
   { path: '/about/', priority: 0.5, changeFrequency: 'yearly' },
   { path: '/faq/', priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/editorial/', priority: 0.4, changeFrequency: 'yearly' },
   { path: '/privacy/', priority: 0.3, changeFrequency: 'yearly' },
   { path: '/terms/', priority: 0.3, changeFrequency: 'yearly' },
 ]
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await listArticles(200)
+export default function sitemap(): MetadataRoute.Sitemap {
+  const posts = listArticles(200)
   const now = new Date()
 
   return [
