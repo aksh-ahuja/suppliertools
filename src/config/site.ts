@@ -15,7 +15,6 @@ export const site = {
     display: '+91 99887 44669',
     link: 'https://wa.me/919988744669',
   },
-  email: 'hello@suppliertools.store',
   repo: {
     url: 'https://github.com/aksh-ahuja/suppliertools',
     label: 'aksh-ahuja/suppliertools',
