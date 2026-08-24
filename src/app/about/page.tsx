@@ -17,6 +17,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        width="narrow"
         eyebrow="About"
         title="Small tools, built by someone who was doing the packing"
         lede="No company, no funding round, no growth targets. Just a few tools that fix specific annoyances for Indian sellers."

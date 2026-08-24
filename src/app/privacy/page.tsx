@@ -15,6 +15,7 @@ export default function PrivacyPage() {
   return (
     <>
       <PageHero
+        width="narrow"
         eyebrow="Privacy"
         title="There is no server, so there is nothing to leak"
         lede="Last updated 24 August 2026."

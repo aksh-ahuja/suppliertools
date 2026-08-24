@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 export default function TermsPage() {
   return (
     <>
-      <PageHero eyebrow="Terms" title="Terms of use" lede="Last updated 24 August 2026." />
+      <PageHero width="narrow" eyebrow="Terms" title="Terms of use" lede="Last updated 24 August 2026." />
 
       <Container width="narrow">
         <div className="prose-page pb-20">

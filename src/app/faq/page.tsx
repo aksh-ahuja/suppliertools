@@ -22,6 +22,7 @@ export default function FaqPage() {
     <>
       <JsonLd data={jsonLd(faqSchema(allFaqs))} />
       <PageHero
+        width="narrow"
         eyebrow="FAQ"
         title="Questions, answered properly"
         lede="No marketing language. If the answer is no, it says no."
