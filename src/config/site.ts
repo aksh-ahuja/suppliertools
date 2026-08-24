@@ -17,8 +17,8 @@ export const site = {
   },
   email: 'hello@suppliertools.store',
   repo: {
-    url: 'https://github.com/akshitahuja/suppliertools',
-    label: 'akshitahuja/suppliertools',
+    url: 'https://github.com/aksh-ahuja/suppliertools',
+    label: 'aksh-ahuja/suppliertools',
   },
   author: {
     name: 'Akshit Ahuja',

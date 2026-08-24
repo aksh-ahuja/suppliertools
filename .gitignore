@@ -6,3 +6,6 @@ out/
 *.tsbuildinfo
 .vercel
 sanity/dist/
+
+# Copied from node_modules by scripts/copy-pdf-worker.mjs
+public/vendor/
