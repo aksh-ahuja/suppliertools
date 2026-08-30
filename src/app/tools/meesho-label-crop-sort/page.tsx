@@ -22,9 +22,9 @@ import { WhatsAppCta } from '@/components/marketing/WhatsAppCta'
 const tool = getTool('meesho-label-crop-sort')!
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Meesho Label Crop Tool — Cut the Tax Invoice, Print 4x6 Thermal',
+  title: 'Meesho Label Crop Tool — Free 4x6 Thermal Labels',
   description:
-    'Free Meesho label crop tool. Cut the tax invoice off your shipping label PDF and print a true 4x6 thermal label, a 6x4 landscape one, or four labels per A4 sheet, sorted by courier, product and size. No sign-up, nothing uploaded.',
+    'Cut the tax invoice off your Meesho label PDF and print a true 4x6 thermal label or four per A4 sheet, sorted by courier and product. Free, no sign-up.',
   path: tool.href,
   keywords: tool.keywords,
 })
@@ -113,12 +113,13 @@ export default function LabelSorterLandingPage() {
           <p className="text-[13px] font-medium tracking-[0.02em] text-muted">
             Free forever · Nothing uploaded · No sign-up
           </p>
-          <h1 className="mt-6 max-w-[15ch] text-[40px] font-bold leading-[1.04] tracking-[-0.04em] sm:text-[60px]">
-            Meesho Label Sorter
+          <h1 className="mt-6 max-w-[17ch] text-[40px] font-bold leading-[1.04] tracking-[-0.04em] sm:text-[60px]">
+            Meesho Label Crop &amp; Sort
           </h1>
           <p className="mt-7 max-w-[56ch] text-[18px] leading-[1.65] text-ink-soft sm:text-[20px]">
-            Upload the label PDF from your supplier panel. Get it back with identical products
-            stacked together and the product name printed in large letters on every single label.
+            Upload the label PDF from your supplier panel. Get it back with the tax invoice cut
+            away, sized for a 4&times;6 thermal roll or four to an A4 sheet, identical products
+            stacked together and the product name printed on every label.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
             <ButtonLink href={`${tool.appHref}/`} size="lg">

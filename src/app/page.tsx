@@ -16,7 +16,7 @@ import { LabelStackDemo } from '@/components/marketing/LabelStackDemo'
 export const metadata: Metadata = pageMetadata({
   title: 'Meesho Label Crop & Sort Tool — Free 4x6 Thermal, No Sign-up',
   description:
-    'Free Meesho label crop tool. Cut the tax invoice off your shipping labels, print a true 4x6 thermal label or four to an A4 sheet, and group identical products together. No sign-up, nothing uploaded, runs in your browser.',
+    'Free Meesho label crop tool. Cut the tax invoice off, print a true 4x6 thermal label or four per A4 sheet, and group identical products. No sign-up.',
   path: '/',
   keywords: [
     'meesho label crop',
