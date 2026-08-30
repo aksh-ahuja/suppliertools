@@ -56,6 +56,7 @@ export const sortMeeshoLabels: Article = {
     <li>Meesho prints labels in the order the orders arrived, not in the order you pick stock.</li>
     <li>Sorting the PDF before printing beats sorting paper afterwards, because the pile comes off the printer already grouped.</li>
     <li>Sort by delivery partner first if handover is your bottleneck, by product first if picking is.</li>
+    <li>If you print to a thermal roll, <a href="/blog/how-to-crop-meesho-shipping-labels/">crop the tax invoice off</a> in the same pass.</li>
     <li>Print the product name on the label too. A SKU ID like <code>2pc_COMB0_LEGEND</code> is unreadable at 6am.</li>
     <li>Use a tool that works inside your browser. A label carries your customer's full address, so it should not be uploaded to a stranger's server.</li>
   </ul>
@@ -220,6 +221,6 @@ export const sortMeeshoLabels: Article = {
 
 <h2>Where to start</h2>
 
-<p>If you want this done for you, the <a href="/tools/meesho-label-sorter/">Meesho Label Sorter</a> on this site does all of the above. It is free, needs no account, and runs entirely in your browser, so your customers' addresses never leave your device.</p>
+<p>If you want this done for you, the <a href="/tools/meesho-label-crop-sort/">Meesho Label Crop &amp; Sort</a> on this site does all of the above. It is free, needs no account, and runs entirely in your browser, so your customers' addresses never leave your device.</p>
 `,
 }

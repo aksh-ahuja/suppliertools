@@ -177,6 +177,6 @@ export const printingLabels: Article = {
 
 <h2>Print a sorted stack, not a random one</h2>
 
-<p>Printing correctly is worth doing. Printing a stack that is already grouped by product and courier is worth more. <a href="/tools/meesho-label-sorter/">Sort the PDF first</a>, free and in your browser, then print with the settings above.</p>
+<p>Printing correctly is worth doing. Printing a stack that is already grouped by product and courier is worth more. <a href="/tools/meesho-label-crop-sort/">Sort the PDF first</a>, free and in your browser, then print with the settings above.</p>
 `,
 }

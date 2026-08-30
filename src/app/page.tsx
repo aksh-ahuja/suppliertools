@@ -14,21 +14,24 @@ import { FaqAccordion } from '@/components/marketing/FaqAccordion'
 import { LabelStackDemo } from '@/components/marketing/LabelStackDemo'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Free tools for Meesho and Indian e-commerce sellers',
+  title: 'Meesho Label Crop & Sort Tool — Free 4x6 Thermal, No Sign-up',
   description:
-    'Free browser-based tools for Indian sellers. Sort your Meesho shipping labels, print the product name on every label and cut packing time. No sign-up, no uploads, your data never leaves your device.',
+    'Free Meesho label crop tool. Cut the tax invoice off your shipping labels, print a true 4x6 thermal label or four to an A4 sheet, and group identical products together. No sign-up, nothing uploaded, runs in your browser.',
   path: '/',
   keywords: [
+    'meesho label crop',
+    'meesho label crop tool',
+    'meesho shipping label crop',
+    'meesho label cropper',
+    'meesho label 4x6 thermal',
+    'meesho label sorter',
     'meesho seller tools',
-    'free meesho label sorter',
     'meesho supplier tools',
-    'ecommerce seller tools india',
-    'shipping label sorting tool',
   ],
 })
 
 export default function HomePage() {
-  const sorter = getTool('meesho-label-sorter')!
+  const sorter = getTool('meesho-label-crop-sort')!
   const posts = listArticles(3)
 
   return (
@@ -37,9 +40,9 @@ export default function HomePage() {
         data={jsonLd(
           faqSchema(siteFaqs),
           howToSchema({
-            name: 'How to sort Meesho shipping labels by product',
+            name: 'How to crop and sort a Meesho shipping label PDF',
             description:
-              'Sort a Meesho shipping label PDF by delivery partner, product, size and quantity, and print the product name on every label.',
+              'Cut the tax invoice off a Meesho shipping label PDF, print it at 4x6 thermal size or four to an A4 sheet, and group the pages by delivery partner, product, size and quantity.',
             steps: labelSorterSteps.map((s) => ({ name: s.name, text: s.text })),
           }),
         )}
@@ -51,16 +54,17 @@ export default function HomePage() {
           <p className="text-[13px] font-medium tracking-[0.02em] text-muted">
             Free · No sign-up · Runs on your device
           </p>
-          <h1 className="mt-6 max-w-[16ch] text-[42px] font-bold leading-[1.02] tracking-[-0.04em] sm:text-[68px]">
-            Stop sorting labels by hand.
+          <h1 className="mt-6 max-w-[18ch] text-[42px] font-bold leading-[1.02] tracking-[-0.04em] sm:text-[68px]">
+            Crop the invoice off. Sort the pile.
           </h1>
-          <p className="mt-7 max-w-[52ch] text-[18px] leading-[1.65] text-ink-soft sm:text-[20px]">
-            Drop in the shipping label PDF from your Meesho panel. Get it back with identical
-            products stacked together and the product name printed on every label.
+          <p className="mt-7 max-w-[54ch] text-[18px] leading-[1.65] text-ink-soft sm:text-[20px]">
+            Drop in the shipping label PDF from your Meesho panel. Get back clean labels at a true
+            4&times;6 thermal size, or four to an A4 sheet, with identical products stacked together
+            and the product name printed on every one.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
             <ButtonLink href={`${sorter.appHref}/`} size="lg">
-              Open the Label Sorter
+              Crop my labels
             </ButtonLink>
             <Link
               href={`${sorter.href}/`}
@@ -77,17 +81,19 @@ export default function HomePage() {
         <Container>
           <div className="grid gap-12 py-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20 lg:py-24">
             <div>
-              <h2 className="max-w-[18ch] text-[26px] font-bold leading-[1.2] tracking-[-0.03em] sm:text-[32px]">
-                Forty orders, one pile, no thinking
+              <h2 className="max-w-[20ch] text-[26px] font-bold leading-[1.2] tracking-[-0.03em] sm:text-[32px]">
+                Half the page is an invoice you throw away
               </h2>
               <div className="mt-6 space-y-5 text-[16.5px] leading-[1.7] text-ink-soft">
                 <p>
-                  Meesho prints labels in the order the orders arrived, so the same product shows up
-                  on page 1, page 9 and page 23. You end up sorting paper on the floor.
+                  Meesho puts the shipping label and the tax invoice on one A4 page. If you print to
+                  a thermal roll you want the top half, and if you print to A4 you would rather fit
+                  four labels on a sheet than waste three quarters of it.
                 </p>
                 <p>
-                  This reads the SKU, size, quantity and courier off every page and rewrites the PDF
-                  with them grouped. It also prints a name you actually recognise, because{' '}
+                  Meesho also prints in the order the orders arrived, so the same product shows up on
+                  page 1, page 9 and page 23 and you end up sorting paper on the floor. This crops
+                  and groups in one pass, and prints a name you recognise, because{' '}
                   <span className="font-mono text-[14.5px] text-ink">2pc_COMB0_LEGEND</span> means
                   nothing at six in the morning.
                 </p>
@@ -162,6 +168,36 @@ export default function HomePage() {
               </div>
             </li>
           </ul>
+        </Container>
+      </section>
+
+      {/* ------------------------------------------------- the cut line */}
+      <section className="py-16 sm:py-24">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
+            <h2 className="max-w-[18ch] text-[26px] font-bold leading-[1.2] tracking-[-0.03em] sm:text-[32px]">
+              Why other croppers leave a black bar on your label
+            </h2>
+            <div className="space-y-5 text-[16.5px] leading-[1.7] text-ink-soft">
+              <p>
+                Because they cut at a fixed distance down the page. The invoice band does not sit in
+                the same place on every label. Across one real 152 page export it started at five
+                different positions depending on the delivery partner, a spread of about 33 points,
+                so a fixed cut is simply wrong for some couriers. What is left over is the black{' '}
+                <span className="font-mono text-[14.5px] text-ink">TAX INVOICE</span> strip you see
+                printed along the bottom of labels from other tools.
+              </p>
+              <p>
+                This one reads every page and finds the band, so the cut lands in the right place
+                whichever courier the label is for. It also takes the invoice out of the file rather
+                than hiding it under a smaller page box, which is the other common shortcut: your
+                GSTIN and the buyer&rsquo;s billing details stay inside a file you hand to a packer.
+                Open a cropped file from here and search it for{' '}
+                <span className="font-mono text-[14.5px] text-ink">GSTIN</span>. There is nothing to
+                find.
+              </p>
+            </div>
+          </div>
         </Container>
       </section>
 

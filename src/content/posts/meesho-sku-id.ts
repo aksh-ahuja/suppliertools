@@ -149,6 +149,6 @@ export const meeshoSkuId: Article = {
 
 <h2>Next step</h2>
 
-<p>If you want the mapping set up without retyping anything, <a href="/tools/meesho-label-sorter/">the Label Sorter</a> collects every SKU ID from your own label PDF and lets you name them in one screen. From then on your labels print the name instead of the code. It is free and runs in your browser, so nothing is uploaded.</p>
+<p>If you want the mapping set up without retyping anything, <a href="/tools/meesho-label-crop-sort/">the Label Crop &amp; Sort tool</a> collects every SKU ID from your own label PDF and lets you name them in one screen. From then on your labels print the name instead of the code. It is free and runs in your browser, so nothing is uploaded.</p>
 `,
 }

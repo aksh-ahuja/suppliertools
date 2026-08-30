@@ -167,6 +167,6 @@ export const supplierPanelWorkflow: Article = {
 
 <h2>The one change to make first</h2>
 
-<p>If you take one thing from this: the gap at stage 3 is where the free time is. <a href="/tools/meesho-label-sorter/">Sort the label PDF</a> before you print it. Free, no account, runs in your browser.</p>
+<p>If you take one thing from this: the gap at stage 3 is where the free time is. <a href="/tools/meesho-label-crop-sort/">Sort the label PDF</a> before you print it. Free, no account, runs in your browser.</p>
 `,
 }

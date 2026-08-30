@@ -44,30 +44,38 @@ export interface Tool {
 
 export const tools: Tool[] = [
   {
-    slug: 'meesho-label-sorter',
-    name: 'Meesho Label Sorter',
-    tagline: 'Sort label pages and print the product name on every label',
+    slug: 'meesho-label-crop-sort',
+    name: 'Meesho Label Crop & Sort',
+    tagline: 'Cut the tax invoice off, print 4x6 thermal, and group identical products',
     description:
-      'Upload the shipping label PDF from your Meesho supplier panel and get it back sorted by delivery partner, product, size and quantity, with the product name printed in large text on every label. Runs entirely in your browser, nothing is uploaded.',
+      'Upload the shipping label PDF from your Meesho supplier panel and get back clean labels with the tax invoice cut away, sized for a 4x6 thermal roll or four to an A4 sheet, sorted by delivery partner, product, size and quantity, with the product name printed on every label. Runs entirely in your browser, nothing is uploaded.',
     emoji: '🏷️',
     category: 'Shipping & packing',
     marketplaces: ['Meesho'],
     pricing: 'free',
     status: 'live',
-    href: '/tools/meesho-label-sorter',
-    appHref: '/tools/meesho-label-sorter/app',
+    href: '/tools/meesho-label-crop-sort',
+    appHref: '/tools/meesho-label-crop-sort/app',
     keywords: [
+      'meesho label crop',
+      'meesho label crop tool',
+      'meesho shipping label crop',
+      'meesho label cropper',
+      'crop meesho label pdf',
+      'meesho label 4x6 thermal',
+      'meesho label a4 4 per page',
       'meesho label sorter',
-      'meesho label sorting tool',
       'sort meesho shipping labels',
       'print product name on meesho label',
-      'meesho label pdf sorter free',
       'meesho packing tool',
       'meesho supplier tools',
-      'meesho label size sort',
-      'मीशो लेबल सॉर्टर',
+      'मीशो लेबल क्रॉप',
     ],
     highlights: [
+      'Cuts the tax invoice off and keeps only the shipping label',
+      'Finds the invoice band on each page instead of cutting at a fixed offset, so no black TAX INVOICE strip is left behind',
+      'Removes the invoice from the file rather than hiding it under a smaller page box',
+      'Prints a true 4x6 inch thermal label, a 6x4 landscape one, or four labels on one A4 sheet',
       'Sorts pages by delivery partner, product, size and quantity',
       'Prints the product name, size and quantity in big letters on each label',
       'Splits the output into separate PDFs per courier or per product',
@@ -77,7 +85,37 @@ export const tools: Tool[] = [
     ],
     faqs: [
       {
-        question: 'Is the Meesho Label Sorter really free?',
+        question: 'How do I crop the tax invoice off a Meesho label?',
+        answer:
+          'Upload the label PDF from your supplier panel, open Settings and pick a crop mode: label only, thermal 4x6, thermal 6x4, or four labels on one A4 page. The tool finds the TAX INVOICE band on every page and cuts just above it, then gives you the file back. Nothing is uploaded and there is no sign-up.',
+      },
+      {
+        question: 'Why do other label croppers leave a black TAX INVOICE strip on my labels?',
+        answer:
+          'Because they cut at a fixed distance down the page. The invoice band does not sit at the same place on every label: across one real 152 page export it started at five different positions depending on the delivery partner, a spread of about 33 points. A fixed cut is therefore wrong for some couriers, and the leftover is the black TAX INVOICE bar. This tool reads each page and finds the band instead, so the cut lands in the right place whichever courier the label is for.',
+      },
+      {
+        question: 'Is the invoice really removed, or just hidden?',
+        answer:
+          'Really removed. Some tools only shrink the page box, which hides the invoice on screen while leaving the text inside the file, so your GSTIN, the buyer\u2019s billing address and your taxable value can still be pulled out of the PDF you hand to a packer or a courier. This tool re-draws each label into a new page through a clipped form, so the invoice is not in the output at all. You can check: open the cropped file and search it for GSTIN.',
+      },
+      {
+        question: 'Is the 4x6 output a real 4x6?',
+        answer:
+          'Yes, exactly 288 by 432 points, which is 4 by 6 inches. It is worth checking whatever tool you use, because a common shortcut is to keep the full A4 width and only trim the height, which gives a page around 8.3 by 5.1 inches. That is not a 4x6 and it will not fill a thermal roll properly.',
+      },
+      {
+        question: 'Can I crop and sort in the same run?',
+        answer:
+          'Yes, and that is the point of doing both here. The labels come back cropped to the size you picked and already grouped by delivery partner, product, size and quantity, with the product name printed under each one. You can also split the output into one file per courier.',
+      },
+      {
+        question: 'What happens if a page has no tax invoice on it?',
+        answer:
+          'It is passed through whole rather than cut at a guess. If a page carries invoice content but the tool cannot find the band to anchor on, it cuts at an estimated position and tells you how many pages that happened to, so you can check those before printing.',
+      },
+      {
+        question: 'Is the Meesho Label Crop & Sort tool really free?',
         answer:
           'Yes. It is free to use with no sign-up, no page limit and no watermark. There is no paid tier for this tool and no card is ever asked for.',
       },

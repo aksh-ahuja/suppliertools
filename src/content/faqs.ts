@@ -5,7 +5,12 @@ export const siteFaqs: ToolFaq[] = [
   {
     question: 'What is SupplierTools?',
     answer:
-      'SupplierTools is a small collection of free web tools for people who sell on Indian marketplaces like Meesho. Each tool does one boring job well, such as sorting a shipping label PDF so that identical products end up next to each other in the print pile.',
+      'SupplierTools is a small collection of free web tools for people who sell on Indian marketplaces like Meesho. Each tool does one boring job well, such as cropping the tax invoice off a shipping label PDF for a 4x6 thermal roll and grouping identical products together in the print pile.',
+  },
+  {
+    question: 'Can I crop the tax invoice off my Meesho shipping labels?',
+    answer:
+      'Yes. Upload the label PDF from your supplier panel and pick a size: a true 4x6 thermal label, a 6x4 landscape one, four labels on a single A4 sheet, or the label at its own size. The tax invoice is cut away and taken out of the file, not just hidden under a smaller page. It is free, there is no sign-up, and nothing is uploaded.',
   },
   {
     question: 'Is it free? What is the catch?',

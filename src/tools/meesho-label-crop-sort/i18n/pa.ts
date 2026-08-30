@@ -3,7 +3,7 @@ import type { Dict } from './en'
 export const pa: Dict = {
   langName: 'ਪੰਜਾਬੀ',
 
-  appName: 'ਲੇਬਲ ਸੌਰਟਰ',
+  appName: 'ਲੇਬਲ ਕ੍ਰੌਪ & ਸੌਰਟ',
   appSub: 'ਮੀਸ਼ੋ ਸ਼ਿਪਿੰਗ ਲੇਬਲ ਲਈ',
   privacyNote: 'ਸਭ ਕੁਝ ਤੁਹਾਡੇ ਫ਼ੋਨ ਜਾਂ ਕੰਪਿਊਟਰ ਵਿੱਚ ਹੀ ਚੱਲਦਾ ਹੈ। ਕੋਈ ਫ਼ਾਈਲ ਕਿਤੇ ਅਪਲੋਡ ਨਹੀਂ ਹੁੰਦੀ।',
 

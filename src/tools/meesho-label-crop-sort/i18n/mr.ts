@@ -3,7 +3,7 @@ import type { Dict } from './en'
 export const mr: Dict = {
   langName: 'मराठी',
 
-  appName: 'लेबल सॉर्टर',
+  appName: 'लेबल क्रॉप & सॉर्ट',
   appSub: 'मीशो शिपिंग लेबलसाठी',
   privacyNote: 'सर्व काही तुमच्या फोन किंवा कॉम्प्युटरमध्येच चालते. कोणतीही फाईल कुठेही अपलोड होत नाही.',
 

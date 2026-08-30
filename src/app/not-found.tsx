@@ -21,7 +21,7 @@ export default function NotFound() {
         </div>
         <p className="mt-8 text-[14px] text-muted">
           Looking for the label sorter?{' '}
-          <Link href="/tools/meesho-label-sorter/" className="font-semibold text-accent hover:underline">
+          <Link href="/tools/meesho-label-crop-sort/" className="font-semibold text-accent hover:underline">
             It is here
           </Link>
           .

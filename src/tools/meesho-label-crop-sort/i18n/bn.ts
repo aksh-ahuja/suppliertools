@@ -3,7 +3,7 @@ import type { Dict } from './en'
 export const bn: Dict = {
   langName: 'বাংলা',
 
-  appName: 'লেবেল সর্টার',
+  appName: 'লেবেল ক্রপ & সর্ট',
   appSub: 'মীশো শিপিং লেবেলের জন্য',
   privacyNote: 'সবকিছু আপনার ফোন বা কম্পিউটারেই চলে। কোনো ফাইল কোথাও আপলোড হয় না।',
 

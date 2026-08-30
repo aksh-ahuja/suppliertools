@@ -2,7 +2,7 @@ export const en = {
   langName: 'English',
 
   // shell
-  appName: 'Label Sorter',
+  appName: 'Label Crop & Sort',
   appSub: 'For Meesho shipping labels',
   privacyNote: 'Everything runs inside your phone or computer. No file is uploaded anywhere.',
 

@@ -3,7 +3,7 @@ import type { Dict } from './en'
 export const te: Dict = {
   langName: 'తెలుగు',
 
-  appName: 'లేబుల్ సార్టర్',
+  appName: 'లేబుల్ క్రాప్ & సార్ట్',
   appSub: 'మీషో షిప్పింగ్ లేబుల్స్ కోసం',
   privacyNote: 'అంతా మీ ఫోన్ లేదా కంప్యూటర్‌లోనే జరుగుతుంది. ఏ ఫైల్ కూడా ఎక్కడికీ అప్‌లోడ్ కాదు.',
 

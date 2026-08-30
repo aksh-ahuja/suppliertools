@@ -124,7 +124,7 @@ function Shell() {
         <footer className="mt-14 border-t border-line pt-6 text-[13px] leading-relaxed text-muted">
           <p>{t.privacyNote}</p>
           <p className="mt-2">
-            <Link href="/tools/meesho-label-sorter/" className="font-medium text-accent hover:underline">
+            <Link href="/tools/meesho-label-crop-sort/" className="font-medium text-accent hover:underline">
               {t.appName}
             </Link>{' '}
             · <Link href="/" className="hover:text-ink">SupplierTools</Link>

@@ -3,7 +3,7 @@ import type { Dict } from './en'
 export const gu: Dict = {
   langName: 'ગુજરાતી',
 
-  appName: 'લેબલ સોર્ટર',
+  appName: 'લેબલ ક્રોપ & સોર્ટ',
   appSub: 'મીશો શિપિંગ લેબલ માટે',
   privacyNote: 'બધું તમારા ફોન કે કમ્પ્યુટરમાં જ ચાલે છે. કોઈ ફાઈલ ક્યાંય અપલોડ થતી નથી.',
 

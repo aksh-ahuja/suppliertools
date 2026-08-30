@@ -168,6 +168,6 @@ export const packOrdersFaster: Article = {
 
 <h2>Start with number one</h2>
 
-<p>If you only change one thing this week, change the page order. <a href="/tools/meesho-label-sorter/">The Meesho Label Sorter</a> does it free, in your browser, with nothing uploaded.</p>
+<p>If you only change one thing this week, change the page order. <a href="/tools/meesho-label-crop-sort/">The Meesho Label Crop &amp; Sort tool</a> does it free, in your browser, with nothing uploaded.</p>
 `,
 }

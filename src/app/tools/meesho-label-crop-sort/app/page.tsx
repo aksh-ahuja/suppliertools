@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { getTool } from '@/config/tools'
 import { pageMetadata } from '@/lib/seo'
-import { LabelSorterApp } from '@/tools/meesho-label-sorter/components/LabelSorterApp'
+import { LabelSorterApp } from '@/tools/meesho-label-crop-sort/components/LabelSorterApp'
 
-const tool = getTool('meesho-label-sorter')!
+const tool = getTool('meesho-label-crop-sort')!
 
 export const metadata: Metadata = pageMetadata({
   title: 'Meesho Label Sorter · Open the tool',

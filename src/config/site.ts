@@ -8,7 +8,7 @@ export const site = {
   url: 'https://suppliertools.store',
   tagline: 'Free tools for Indian e-commerce sellers',
   description:
-    'Free browser-based tools for Meesho, Flipkart and Amazon sellers in India. Sort shipping labels, print product names, save packing time. Nothing is uploaded, everything runs on your own device.',
+    'Free browser-based tools for Meesho, Flipkart and Amazon sellers in India. Crop the tax invoice off your shipping labels for a 4x6 thermal roll, sort them by product and courier, and print the product name on every label. Nothing is uploaded, everything runs on your own device.',
   locale: 'en_IN',
   whatsapp: {
     number: '+919988744669',
