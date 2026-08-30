@@ -58,6 +58,16 @@ export function ReviewStep({ job, onFixNames, onAgain, onSettings }: Props) {
     }
   }, [organised])
 
+  /*
+   * Pages where the TAX INVOICE band was not found and the cut had to be
+   * estimated. Pages carrying no invoice at all are not counted: they are
+   * passed through whole on purpose and there is nothing to check.
+   */
+  const guessedCuts =
+    state.prefs.crop === 'off'
+      ? 0
+      : organised.pages.filter((p) => p.cut !== null && !p.cutFound).length
+
   const outputLabel = state.prefs.splitBy.length
     ? t.rv_outputSep(state.prefs.splitBy.map((f) => t[`f_${f}` as const]).join(' + '))
     : t.rv_outputOne
@@ -217,6 +227,14 @@ export function ReviewStep({ job, onFixNames, onAgain, onSettings }: Props) {
                 ? t.rv_doneMany(stats.pages, results.length)
                 : t.rv_done(stats.pages)}
             </Notice>
+
+            {guessedCuts > 0 && (
+              <div className="mt-3">
+                <Notice tone="warn" icon="⚠️">
+                  {t.set_cropWarn(guessedCuts)}
+                </Notice>
+              </div>
+            )}
 
             <div className="mt-4 grid gap-2">
               {results.map((file) => (

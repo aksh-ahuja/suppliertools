@@ -234,8 +234,8 @@ function stripHeight(reference: number, wanted: boolean): number {
  * Each source page is embedded through a form XObject whose BBox is the label
  * region, which is what makes the cut real: the invoice is not part of the
  * embedded content, so it is not in the output to be extracted later. Pages
- * whose cut could not be found are embedded whole rather than guessed at, and
- * reported back so the caller can say which ones to check.
+ * carrying no invoice at all are embedded whole rather than guessed at. Pages
+ * whose band was estimated are counted by the caller, which warns about them.
  */
 async function buildCropped(
   out: Awaited<ReturnType<PdfLib['PDFDocument']['create']>>,
@@ -246,9 +246,8 @@ async function buildCropped(
   labels: StampLabels,
   draw: Pick<PdfLib, 'rgb' | 'degrees'>,
   onPage: () => Promise<void>,
-): Promise<number> {
+): Promise<void> {
   const { degrees } = draw
-  let uncut = 0
 
   const embedded = []
   for (const info of file.pages) {
@@ -260,7 +259,6 @@ async function buildCropped(
     let box
     if (info.cut != null) {
       box = cropBoxFromCut(info.cut, vm)
-      if (!info.cutFound) uncut++
     } else {
       box = { left: 0, bottom: 0, right: width, top: height }
     }
@@ -340,8 +338,6 @@ async function buildCropped(
       await onPage()
     }
   }
-
-  return uncut
 }
 
 export interface GenerateOptions {

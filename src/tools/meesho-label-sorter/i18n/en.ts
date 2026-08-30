@@ -182,7 +182,7 @@ export const en = {
   crop_thermal4x6: 'Thermal 4x6 (portrait)',
   crop_thermal6x4: 'Thermal 6x4 (landscape)',
   crop_a4up: '4 labels on one A4 page',
-  set_cropWarn: (n: number) => `Could not find the invoice on ${n} page(s). Those were left uncut, so check them before printing.`,
+  set_cropWarn: (n: number) => `The invoice band was not found on ${n} page(s), so they were cut at an estimated position. Check those pages before printing.`,
 } as const
 
 /**
