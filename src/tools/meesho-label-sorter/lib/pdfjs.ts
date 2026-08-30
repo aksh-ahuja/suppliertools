@@ -94,6 +94,8 @@ export async function readLabelPdfs(
         qty: first ? first.qty : '1',
         courier: parsed.courier || '-',
         bottom: parsed.bottom,
+        cut: parsed.cut,
+        cutFound: parsed.cutFound,
       }
       job.pages.push(labelPage)
       page.cleanup()

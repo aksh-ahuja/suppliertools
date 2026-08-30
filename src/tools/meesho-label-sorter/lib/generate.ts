@@ -10,8 +10,9 @@ async function loadPdfLib(): Promise<PdfLib> {
   if (!pdfLib) pdfLib = await import('pdf-lib')
   return pdfLib
 }
-import type { GeneratedFile, LabelPage, ParsedJob, Preferences } from '../types'
+import type { GeneratedFile, LabelPage, OutputFile, ParsedJob, Preferences } from '../types'
 import { viewMap } from './geometry'
+import { cropBoxFromCut, cropLayout, placeInCell } from './crop'
 
 /** Helvetica cap height and descender, used to place text inside the box. */
 const CAP = 0.72
@@ -38,6 +39,115 @@ export interface StampLabels {
   size: string
   qty: string
   set: string
+}
+
+interface StampText {
+  lineOne: string
+  lineTwo: string
+  tail: string
+}
+
+/** The lines the seller asked to see, in the order they get drawn. */
+function stampText(info: LabelPage, prefs: Preferences, labels: StampLabels): StampText {
+  const primary = prefs.print.product ? printable(info.product).toUpperCase() : ''
+
+  const detailParts: string[] = []
+  if (prefs.print.size) detailParts.push(`${labels.size} : ${printable(info.size).toUpperCase()}`)
+  if (prefs.print.qty) detailParts.push(`${labels.qty} : ${printable(info.qty)}`)
+  const secondary = detailParts.join('     ')
+
+  const tailParts: string[] = []
+  if (prefs.print.courier) tailParts.push(printable(info.courier).toUpperCase())
+  if (prefs.print.setNumber && info.group) tailParts.push(`${labels.set} ${info.group}`)
+
+  // If the product line is switched off, the detail line takes its place.
+  return {
+    lineOne: primary || secondary,
+    lineTwo: primary ? secondary : '',
+    tail: tailParts.join('   |   '),
+  }
+}
+
+/** True when there is anything at all to stamp, so the caller can skip the strip. */
+export function hasStamp(info: LabelPage, prefs: Preferences, labels: StampLabels): boolean {
+  const { lineOne, lineTwo, tail } = stampText(info, prefs, labels)
+  return Boolean(lineOne || lineTwo || tail)
+}
+
+/**
+ * Draws the stamp into a reserved strip on a cropped page.
+ *
+ * The uncropped path can drop the block into the empty A4 space below the
+ * label. Once the invoice is cut away that space is gone, so cropped output
+ * reserves a strip and the text is fitted to it.
+ */
+export function stampIntoRect(
+  page: PDFPage,
+  info: LabelPage,
+  prefs: Preferences,
+  fonts: { bold: PDFFont; regular: PDFFont },
+  labels: StampLabels,
+  rect: { x: number; y: number; width: number; height: number },
+  draw: Pick<PdfLib, 'rgb'>,
+): void {
+  const { rgb } = draw
+  const { lineOne, lineTwo, tail } = stampText(info, prefs, labels)
+  if (!lineOne && !lineTwo && !tail) return
+
+  const padX = Math.min(10, rect.width * 0.04)
+  const padY = Math.min(3.5, rect.height * 0.08)
+  const maxW = rect.width - padX * 2
+
+  // Share the strip between the lines that are actually present.
+  const inner = rect.height - padY * 2
+  const tailH = tail ? Math.min(9, inner * 0.22) : 0
+  const body = inner - tailH
+  const oneShare = lineTwo ? body * 0.56 : body
+  const twoShare = lineTwo ? body * 0.44 : 0
+
+  const sizeOne = lineOne ? fitSize(fonts.bold, lineOne, maxW, oneShare * 0.82, 6) : 0
+  const sizeTwo = lineTwo ? fitSize(fonts.bold, lineTwo, maxW, twoShare * 0.82, 6) : 0
+  const sizeTail = tail ? fitSize(fonts.regular, tail, maxW, tailH * 0.86, 5) : 0
+
+  const put = (font: PDFFont, text: string, size: number, baseline: number) => {
+    const w = font.widthOfTextAtSize(text, size)
+    page.drawText(text, {
+      x: rect.x + (rect.width - w) / 2,
+      y: baseline,
+      size,
+      font,
+      color: rgb(0, 0, 0),
+    })
+  }
+
+  /*
+   * Leading, not the plain descender. SKU-derived product names are full of
+   * underscores, which hang lower than DESC allows for and would otherwise
+   * touch the line beneath.
+   */
+  const LEAD = 0.46
+
+  let cursor = rect.y + rect.height - padY
+  if (lineOne) {
+    cursor -= sizeOne * CAP
+    put(fonts.bold, lineOne, sizeOne, cursor)
+    cursor -= sizeOne * LEAD
+  }
+  if (lineTwo) {
+    cursor -= sizeTwo * CAP
+    put(fonts.bold, lineTwo, sizeTwo, cursor)
+    cursor -= sizeTwo * DESC
+  }
+  if (tail) put(fonts.regular, tail, sizeTail, rect.y + padY)
+
+  page.drawRectangle({
+    x: rect.x,
+    y: rect.y,
+    width: rect.width,
+    height: rect.height,
+    borderWidth: 1,
+    borderColor: rgb(0, 0, 0),
+  })
 }
 
 /**
@@ -67,22 +177,7 @@ export function stampPage(
   const boxW = vm.W - margin * 2
   const maxW = boxW - padX * 2
 
-  // Build the lines that were actually asked for.
-  const primary = prefs.print.product ? printable(info.product).toUpperCase() : ''
-
-  const detailParts: string[] = []
-  if (prefs.print.size) detailParts.push(`${labels.size} : ${printable(info.size).toUpperCase()}`)
-  if (prefs.print.qty) detailParts.push(`${labels.qty} : ${printable(info.qty)}`)
-  const secondary = detailParts.join('     ')
-
-  const tailParts: string[] = []
-  if (prefs.print.courier) tailParts.push(printable(info.courier).toUpperCase())
-  if (prefs.print.setNumber && info.group) tailParts.push(`${labels.set} ${info.group}`)
-  const tail = tailParts.join('   |   ')
-
-  // If the product line is switched off, the detail line takes its place.
-  const lineOne = primary || secondary
-  const lineTwo = primary ? secondary : ''
+  const { lineOne, lineTwo, tail } = stampText(info, prefs, labels)
   if (!lineOne && !lineTwo && !tail) return
 
   const sizeOne = lineOne ? fitSize(fonts.bold, lineOne, maxW, 30, 11) : 0
@@ -125,6 +220,128 @@ export function stampPage(
     if (lineTwo) put(fonts.bold, lineTwo, sizeTwo, baseline - lead)
   }
   if (tail) put(fonts.regular, tail, sizeTail, (boxH ? bottom : top) - 7 - sizeTail * CAP)
+}
+
+/** Height of the strip reserved under a cropped label for the stamp. */
+function stripHeight(reference: number, wanted: boolean): number {
+  if (!wanted) return 0
+  return Math.max(24, Math.min(60, reference * 0.14))
+}
+
+/**
+ * Builds one cropped output document.
+ *
+ * Each source page is embedded through a form XObject whose BBox is the label
+ * region, which is what makes the cut real: the invoice is not part of the
+ * embedded content, so it is not in the output to be extracted later. Pages
+ * whose cut could not be found are embedded whole rather than guessed at, and
+ * reported back so the caller can say which ones to check.
+ */
+async function buildCropped(
+  out: Awaited<ReturnType<PdfLib['PDFDocument']['create']>>,
+  sources: Awaited<ReturnType<PdfLib['PDFDocument']['load']>>[],
+  file: OutputFile,
+  prefs: Preferences,
+  fonts: { bold: PDFFont; regular: PDFFont },
+  labels: StampLabels,
+  draw: Pick<PdfLib, 'rgb' | 'degrees'>,
+  onPage: () => Promise<void>,
+): Promise<number> {
+  const { degrees } = draw
+  let uncut = 0
+
+  const embedded = []
+  for (const info of file.pages) {
+    const srcPage = sources[info.src].getPage(info.idx)
+    const { width, height } = srcPage.getSize()
+    const rotation = srcPage.getRotation().angle
+    const vm = viewMap(rotation, width, height)
+
+    let box
+    if (info.cut != null) {
+      box = cropBoxFromCut(info.cut, vm)
+      if (!info.cutFound) uncut++
+    } else {
+      box = { left: 0, bottom: 0, right: width, top: height }
+    }
+    embedded.push({
+      page: await out.embedPage(srcPage, box),
+      info,
+      rotation,
+    })
+  }
+
+  const wantStamp = file.pages.some((p) => hasStamp(p, prefs, labels))
+  const first = embedded[0]
+  const upright = ((first.rotation % 360) + 360) % 360 % 180 === 0
+  const labelW = upright ? first.page.width : first.page.height
+  const labelH = upright ? first.page.height : first.page.width
+
+  /*
+   * In 'crop' mode the page is the label plus the strip, so the strip has to
+   * be measured before the layout and then reused — measuring it again from
+   * the finished page height would give a taller strip than the page was
+   * sized for, and the label would be squeezed to fit.
+   */
+  const strip = stripHeight(labelH, wantStamp)
+  const layout = cropLayout(
+    prefs.crop,
+    labelW,
+    labelH + (prefs.crop === 'crop' ? strip : 0),
+  )
+  const cellStrip =
+    prefs.crop === 'crop' ? strip : stripHeight(layout.cells[0].height, wantStamp)
+
+  for (let i = 0; i < embedded.length; i += layout.perPage) {
+    const page = out.addPage([layout.pageWidth, layout.pageHeight])
+    const batch = embedded.slice(i, i + layout.perPage)
+
+    for (let c = 0; c < batch.length; c++) {
+      const cell = layout.cells[c]
+      const { page: form, info, rotation } = batch[c]
+
+      const placed = placeInCell(
+        {
+          x: cell.x,
+          y: cell.y + cellStrip,
+          width: cell.width,
+          height: cell.height - cellStrip,
+        },
+        form.width,
+        form.height,
+        layout.perPage > 1 ? 6 : 0,
+        rotation,
+      )
+
+      page.drawPage(form, {
+        x: placed.x,
+        y: placed.y,
+        width: placed.width,
+        height: placed.height,
+        rotate: degrees(placed.rotate),
+      })
+
+      if (cellStrip > 0) {
+        stampIntoRect(
+          page,
+          info,
+          prefs,
+          fonts,
+          labels,
+          {
+            x: cell.x + 4,
+            y: cell.y + 3,
+            width: cell.width - 8,
+            height: cellStrip - 5,
+          },
+          draw,
+        )
+      }
+      await onPage()
+    }
+  }
+
+  return uncut
 }
 
 export interface GenerateOptions {
@@ -175,6 +392,29 @@ export async function generateSortedPdfs({
     const fonts = {
       bold: await out.embedFont(StandardFonts.HelveticaBold),
       regular: await out.embedFont(StandardFonts.Helvetica),
+    }
+
+    if (prefs.crop !== 'off') {
+      await buildCropped(out, sources, file, prefs, fonts, labels, { rgb, degrees }, async () => {
+        done++
+        if (done % 6 === 0 || done === total) {
+          onProgress(done, total, false)
+          await new Promise((r) => setTimeout(r, 0))
+        }
+      })
+
+      onProgress(done, total, true)
+      await new Promise((r) => setTimeout(r, 0))
+
+      const cropped = await out.save()
+      const croppedBlob = new Blob([cropped as unknown as BlobPart], { type: 'application/pdf' })
+      results.push({
+        url: URL.createObjectURL(croppedBlob),
+        name: safeFileName(job, shopName, file.key, fileIndex),
+        pages: Math.ceil(file.pages.length / (prefs.crop === 'a4-4up' ? 4 : 1)),
+        key: file.key,
+      })
+      continue
     }
 
     // Copy in one call per source document, then place them in sorted order.

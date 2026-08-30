@@ -1,4 +1,5 @@
 import type { AppState, Preferences, Shop } from '../types'
+import { CROP_MODES } from './crop'
 import { DEFAULT_SORT } from './sort'
 import { makeId } from './sku'
 
@@ -11,6 +12,7 @@ export const DEFAULT_PREFS: Preferences = {
   splitBy: [],
   print: { product: true, size: true, qty: true, courier: true, setNumber: false },
   mappingEnabled: true,
+  crop: 'off',
 }
 
 export function defaultState(): AppState {
@@ -89,6 +91,7 @@ function coerce(raw: any): AppState {
         typeof raw?.prefs?.mappingEnabled === 'boolean'
           ? raw.prefs.mappingEnabled
           : base.prefs.mappingEnabled,
+      crop: CROP_MODES.includes(raw?.prefs?.crop) ? raw.prefs.crop : base.prefs.crop,
     },
     onboarded: raw.onboarded === true,
   }

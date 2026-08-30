@@ -3,6 +3,8 @@
 import { useLabelSorter } from '../state/store'
 import { PRINT_FIELDS, type PrintField, type SortField } from '../types'
 import { normaliseSortOrder } from '../lib/sort'
+import type { CropMode } from '../lib/crop'
+import { cx } from '@/lib/utils'
 import { CheckRow, OrderList, Toggle } from './Primitives'
 
 /** Shared by onboarding and settings so the two can never drift apart. */
@@ -66,6 +68,52 @@ export function PrintControl() {
           label={field === 'setNumber' ? t.f_setNumber : t[`f_${field}` as const]}
         />
       ))}
+    </div>
+  )
+}
+
+/**
+ * Cropping is a radio, not a checkbox: the choice is what shape comes out of
+ * the printer, and the seller's printer decides that once and then never again.
+ */
+export function CropControl() {
+  const { t, state, setPrefs } = useLabelSorter()
+  const modes: { key: CropMode; label: string }[] = [
+    { key: 'off', label: t.crop_off },
+    { key: 'crop', label: t.crop_crop },
+    { key: 'thermal-4x6', label: t.crop_thermal4x6 },
+    { key: 'thermal-6x4', label: t.crop_thermal6x4 },
+    { key: 'a4-4up', label: t.crop_a4up },
+  ]
+
+  return (
+    <div className="grid gap-1.5">
+      {modes.map((mode) => {
+        const active = state.prefs.crop === mode.key
+        return (
+          <label
+            key={mode.key}
+            className="flex cursor-pointer items-center gap-3 rounded-xl px-1 py-2.5 transition-colors hover:bg-bg-sunk/60"
+          >
+            <span
+              className={cx(
+                'grid h-[22px] w-[22px] flex-none place-items-center rounded-full border-2 transition-colors',
+                active ? 'border-accent' : 'border-line bg-card',
+              )}
+            >
+              {active && <span className="h-[11px] w-[11px] rounded-full bg-accent" />}
+            </span>
+            <input
+              type="radio"
+              name="crop-mode"
+              checked={active}
+              onChange={() => setPrefs({ crop: mode.key })}
+              className="sr-only"
+            />
+            <span className="text-[16px] leading-snug">{mode.label}</span>
+          </label>
+        )
+      })}
     </div>
   )
 }

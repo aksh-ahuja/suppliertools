@@ -173,6 +173,16 @@ export const en = {
   e_importFail: 'That backup file could not be read.',
   e_skuTaken: (product: string) => `This SKU ID is already under "${product}".`,
   unnamed: '(no name)',
+
+  // crop
+  set_crop: 'Cut the tax invoice off',
+  set_cropHint: 'Keeps only the shipping label. The invoice is removed from the file, not just hidden under a smaller page.',
+  crop_off: 'Keep the full page',
+  crop_crop: 'Label only',
+  crop_thermal4x6: 'Thermal 4x6 (portrait)',
+  crop_thermal6x4: 'Thermal 6x4 (landscape)',
+  crop_a4up: '4 labels on one A4 page',
+  set_cropWarn: (n: number) => `Could not find the invoice on ${n} page(s). Those were left uncut, so check them before printing.`,
 } as const
 
 /**

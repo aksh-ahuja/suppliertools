@@ -1,3 +1,5 @@
+import type { CropMode } from './lib/crop'
+
 /** The four things a label page can be grouped by. */
 export const SORT_FIELDS = ['courier', 'product', 'size', 'qty'] as const
 export type SortField = (typeof SORT_FIELDS)[number]
@@ -32,6 +34,8 @@ export interface Preferences {
    * Sellers with one SKU per product often prefer this.
    */
   mappingEnabled: boolean
+  /** Whether to cut the tax invoice off, and what shape to print. */
+  crop: CropMode
 }
 
 export interface AppState {
@@ -55,6 +59,10 @@ export interface LabelPage {
   courier: string
   /** Y coordinate of the lowest text on the page, in view space. */
   bottom: number | null
+  /** View-space y of the label / tax invoice boundary. Null if nothing to cut. */
+  cut: number | null
+  /** False when `cut` was guessed rather than found. */
+  cutFound: boolean
   /* Filled in during sorting. */
   product?: string
   mapped?: boolean

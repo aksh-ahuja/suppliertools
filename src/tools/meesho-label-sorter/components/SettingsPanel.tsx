@@ -10,6 +10,7 @@ import { countSkus } from '../lib/mapping'
 import { DEFAULT_PREFS } from '../lib/storage'
 import { Notice, Panel, PanelHead, TextField } from './Primitives'
 import {
+  CropControl,
   MappingToggle,
   PrintControl,
   SortOrderControl,
@@ -89,6 +90,11 @@ export function SettingsPanel() {
       <Panel>
         <PanelHead title={t.set_split} hint={t.set_splitHint} />
         <SplitControl />
+      </Panel>
+
+      <Panel>
+        <PanelHead title={t.set_crop} hint={t.set_cropHint} />
+        <CropControl />
       </Panel>
 
       <Panel>

@@ -1,4 +1,5 @@
 import { SIZE_TOKENS } from './sizes'
+import { cutFromAnchor, fallbackCut } from './crop'
 import type { ViewMap } from './geometry'
 
 export interface LabelRow {
@@ -12,6 +13,13 @@ export interface ParsedLabel {
   rows: LabelRow[]
   /** Lowest text on the page, used to place the stamp below the label. */
   bottom: number | null
+  /**
+   * View-space y of the cut between the label and the tax invoice, for
+   * cropping. Null when the page carries no invoice to cut away.
+   */
+  cut: number | null
+  /** False when `cut` is a guess because no TAX INVOICE run was found. */
+  cutFound: boolean
 }
 
 interface TextItem {
@@ -68,9 +76,26 @@ export function parseLabelPage(items: TextItem[], vm: ViewMap): ParsedLabel {
     })
   }
 
-  const out: ParsedLabel = { courier: '', rows: [], bottom: null }
+  const out: ParsedLabel = { courier: '', rows: [], bottom: null, cut: null, cutFound: false }
   if (!texts.length) return out
   out.bottom = Math.min(...texts.map((t) => t.y)) - 3
+
+  /*
+   * The cut line for cropping. Anchor on the topmost TAX INVOICE run, since a
+   * page can carry more than one invoice block. Everything above the band's
+   * top edge is the label; everything below is the invoice.
+   */
+  const band = texts
+    .filter((t) => /^TAX\s+INVOICE$/i.test(t.s))
+    .sort((a, b) => b.y - a.y)[0]
+  if (band) {
+    out.cut = cutFromAnchor(band.y, band.fs)
+    out.cutFound = true
+  } else if (texts.some((t) => /^BILL TO/i.test(t.s) || /GSTIN/i.test(t.s))) {
+    // Invoice-like content but no band we recognise: crop, but flag the guess.
+    out.cut = fallbackCut(vm.H)
+    out.cutFound = false
+  }
 
   // Delivery partner: the top-most large text in the right half of the label.
   const candidates = texts.filter(
