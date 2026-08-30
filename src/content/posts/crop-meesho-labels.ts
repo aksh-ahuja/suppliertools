@@ -42,7 +42,7 @@ export const cropMeeshoLabels: Article = {
     {
       question: 'Will cropping break the barcode or the tracking number?',
       answer:
-        'No, as long as the crop keeps the whole label area. The barcode, the QR code and the courier routing codes all sit above the invoice band. Only cut below them, and scanning is unaffected.',
+        'No, as long as the crop keeps the whole label area. On a Meesho label the barcode, the QR code and the courier routing codes all sit above the invoice band, so a cut placed below them leaves every scannable element intact. Print at 100% actual size rather than fit-to-page, because scaling shrinks the barcode and is the more common cause of scan failures.',
     },
     {
       question: 'Can I crop and sort in one step?',
@@ -122,8 +122,12 @@ identical products together in the same pass.</p>
 <p>This is the most common complaint about crop tools, and the cause is straightforward once you
 look inside the file.</p>
 
-<p>Most tools cut at a <strong>fixed distance down the page</strong>. That works only if the
-invoice always starts in the same place. It does not.</p>
+<p>The <strong>invoice band</strong> is the black <code>TAX INVOICE</code> header strip that
+separates the shipping label from the tax invoice below it. It is the line a crop has to find,
+because everything above it is label and everything below it is invoice.</p>
+
+<p>Most tools cut at a <strong>fixed distance down the page</strong>. That works only if the band
+always starts in the same place. It does not.</p>
 
 <figure>
 <svg viewBox="0 0 420 210" role="img" aria-labelledby="cutdiag-title cutdiag-desc" style="width:100%;height:auto;border:1px solid currentColor">
