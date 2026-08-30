@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/Badge'
 import { useLabelSorter } from '../state/store'
 import { organise, summarise } from '../lib/sort'
 import { generateSortedPdfs } from '../lib/generate'
+import { makeZip } from '../lib/zip'
 import type { GeneratedFile, ParsedJob } from '../types'
 import { Notice, Panel, ProgressBar } from './Primitives'
 
@@ -96,13 +97,36 @@ export function ReviewStep({ job, onFixNames, onAgain, onSettings }: Props) {
     }
   }
 
+  /**
+   * One archive rather than one download per file.
+   *
+   * Clicking a link per file used to lose everything after the first: a page
+   * gets one automatic download and the browser asks permission for the rest,
+   * and a dismissed prompt is silent. The individual links above still work
+   * for anyone who wants a single courier's PDF on its own.
+   */
+  const [zipping, setZipping] = useState(false)
   const downloadAll = async () => {
-    for (const file of results) {
+    setZipping(true)
+    try {
+      const entries = []
+      for (const file of results) {
+        const bytes = new Uint8Array(await (await fetch(file.url)).arrayBuffer())
+        entries.push({ name: file.name, bytes })
+      }
+      const now = new Date()
+      const day = now.toISOString().slice(0, 10)
+      const shopPart = (shop?.name ?? 'labels').replace(/[^\w-]+/g, '_') || 'labels'
+      const blob = makeZip(entries, now)
+      const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
-      link.href = file.url
-      link.download = file.name
+      link.href = url
+      link.download = `${shopPart}_labels_${day}.zip`
       link.click()
-      await new Promise((r) => setTimeout(r, 700))
+      // Give the browser a moment to take the blob before it is revoked.
+      setTimeout(() => URL.revokeObjectURL(url), 4000)
+    } finally {
+      setZipping(false)
     }
   }
 
@@ -256,7 +280,9 @@ export function ReviewStep({ job, onFixNames, onAgain, onSettings }: Props) {
 
             <div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
               {results.length > 1 && (
-                <Button onClick={downloadAll}>{t.rv_downloadAll}</Button>
+                <Button onClick={downloadAll} disabled={zipping}>
+                  {zipping ? t.rv_saving : t.rv_downloadAll}
+                </Button>
               )}
               <Button variant="secondary" onClick={onAgain}>
                 {t.rv_again}

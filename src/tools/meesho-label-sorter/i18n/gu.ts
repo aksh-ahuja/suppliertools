@@ -92,7 +92,7 @@ export const gu: Dict = {
   rv_saving: 'PDF સેવ થઈ રહી છે...',
   rv_done: (n) => `તૈયાર છે. ${n} પેજ સોર્ટ થઈને નામ લાગી ગયા.`,
   rv_doneMany: (n, f) => `તૈયાર છે. ${n} પેજ ${f} ફાઈલોમાં સોર્ટ થયા.`,
-  rv_downloadAll: 'બધી ફાઈલો ડાઉનલોડ કરો',
+  rv_downloadAll: 'બધું એક ZIP માં ડાઉનલોડ કરો',
   rv_again: 'બીજી ફાઈલ કરો',
   rv_output: 'પરિણામ',
   rv_outputOne: 'એક જ PDF',

@@ -92,7 +92,7 @@ export const bn: Dict = {
   rv_saving: 'PDF সেভ হচ্ছে...',
   rv_done: (n) => `তৈরি। ${n} পাতা সাজানো ও নাম দেওয়া হয়েছে।`,
   rv_doneMany: (n, f) => `তৈরি। ${n} পাতা ${f} ফাইলে সাজানো হয়েছে।`,
-  rv_downloadAll: 'সব ফাইল ডাউনলোড করুন',
+  rv_downloadAll: 'সব একটি ZIP-এ ডাউনলোড করুন',
   rv_again: 'আরেকটি ফাইল করুন',
   rv_output: 'ফলাফল',
   rv_outputOne: 'একটিই PDF',

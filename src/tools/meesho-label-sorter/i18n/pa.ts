@@ -92,7 +92,7 @@ export const pa: Dict = {
   rv_saving: 'PDF ਸੇਵ ਹੋ ਰਹੀ ਹੈ...',
   rv_done: (n) => `ਤਿਆਰ ਹੈ। ${n} ਪੇਜ ਸੌਰਟ ਹੋ ਕੇ ਨਾਂ ਲੱਗ ਗਏ।`,
   rv_doneMany: (n, f) => `ਤਿਆਰ ਹੈ। ${n} ਪੇਜ ${f} ਫ਼ਾਈਲਾਂ ਵਿੱਚ ਸੌਰਟ ਹੋ ਗਏ।`,
-  rv_downloadAll: 'ਸਾਰੀਆਂ ਫ਼ਾਈਲਾਂ ਡਾਊਨਲੋਡ ਕਰੋ',
+  rv_downloadAll: 'ਸਭ ਇੱਕ ZIP ਵਿੱਚ ਡਾਊਨਲੋਡ ਕਰੋ',
   rv_again: 'ਹੋਰ ਫ਼ਾਈਲ ਕਰੋ',
   rv_output: 'ਨਤੀਜਾ',
   rv_outputOne: 'ਇੱਕੋ PDF',

@@ -99,7 +99,7 @@ export const en = {
   rv_saving: 'Saving PDF...',
   rv_done: (n: number) => `Ready. ${n} pages sorted and named.`,
   rv_doneMany: (n: number, f: number) => `Ready. ${n} pages sorted into ${f} files.`,
-  rv_downloadAll: 'Download all files',
+  rv_downloadAll: 'Download all as one ZIP',
   rv_again: 'Do another file',
   rv_output: 'Output',
   rv_outputOne: 'One single PDF',

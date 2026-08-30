@@ -92,7 +92,7 @@ export const te: Dict = {
   rv_saving: 'PDF సేవ్ అవుతోంది...',
   rv_done: (n) => `సిద్ధం. ${n} పేజీలు సార్ట్ అయి పేర్లు పడ్డాయి.`,
   rv_doneMany: (n, f) => `సిద్ధం. ${n} పేజీలు ${f} ఫైళ్లలో సార్ట్ అయ్యాయి.`,
-  rv_downloadAll: 'అన్ని ఫైళ్లు డౌన్‌లోడ్ చేయి',
+  rv_downloadAll: 'అన్నీ ఒకే ZIP గా డౌన్‌లోడ్ చేయండి',
   rv_again: 'మరో ఫైల్ చేయి',
   rv_output: 'ఫలితం',
   rv_outputOne: 'ఒకే PDF',

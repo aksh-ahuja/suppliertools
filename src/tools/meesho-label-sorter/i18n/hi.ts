@@ -93,7 +93,7 @@ export const hi: Dict = {
   rv_saving: 'PDF सेव हो रही है...',
   rv_done: (n) => `तैयार है। ${n} पेज सॉर्ट होकर नाम लग गए।`,
   rv_doneMany: (n, f) => `तैयार है। ${n} पेज ${f} फ़ाइलों में सॉर्ट हो गए।`,
-  rv_downloadAll: 'सारी फ़ाइलें डाउनलोड करें',
+  rv_downloadAll: 'सब एक ZIP में डाउनलोड करें',
   rv_again: 'दूसरी फ़ाइल करें',
   rv_output: 'नतीजा',
   rv_outputOne: 'एक ही PDF',

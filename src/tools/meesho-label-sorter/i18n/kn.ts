@@ -92,7 +92,7 @@ export const kn: Dict = {
   rv_saving: 'PDF ಉಳಿಸಲಾಗುತ್ತಿದೆ...',
   rv_done: (n) => `ಸಿದ್ಧ. ${n} ಪುಟಗಳು ಸಾರ್ಟ್ ಆಗಿ ಹೆಸರು ಬಿದ್ದಿದೆ.`,
   rv_doneMany: (n, f) => `ಸಿದ್ಧ. ${n} ಪುಟಗಳು ${f} ಫೈಲ್‌ಗಳಲ್ಲಿ ಸಾರ್ಟ್ ಆಗಿವೆ.`,
-  rv_downloadAll: 'ಎಲ್ಲಾ ಫೈಲ್‌ಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ',
+  rv_downloadAll: 'ಎಲ್ಲವನ್ನೂ ಒಂದೇ ZIP ಆಗಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ',
   rv_again: 'ಇನ್ನೊಂದು ಫೈಲ್ ಮಾಡಿ',
   rv_output: 'ಫಲಿತಾಂಶ',
   rv_outputOne: 'ಒಂದೇ PDF',
